@@ -1,1 +1,13 @@
-<p>form works!</p>
+<form [formGroup]="form" class="form" (ngSubmit)="submit()">
+    <mat-form-field  appearance="outline">
+        <mat-label>Name</mat-label>
+        <input formControlName="name" type="text" matInput form>
+        <app-input-error [controls]="this.form.controls['name']" [fieldName]="'Name'"></app-input-error>
+    </mat-form-field>
+    <mat-form-field  appearance="outline">
+        <mat-label>Profession</mat-label>
+        <input formControlName="profession" type="text" matInput form>
+        <app-input-error [controls]="this.form.controls['profession']" [fieldName]="'Profession'"></app-input-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary">Submit</button>
+</form>

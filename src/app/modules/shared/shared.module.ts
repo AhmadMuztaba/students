@@ -8,8 +8,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { InputErrorComponent } from './input-error/input-error.component';
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatFormFieldModule} from "@angular/material/form-field";
 import {MatMenuModule} from '@angular/material/menu';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [InputErrorComponent],
   imports: [
@@ -21,7 +23,10 @@ import {MatMenuModule} from '@angular/material/menu';
     MatIconModule,
     MatListModule,
     MatFormFieldModule,
-    MatMenuModule
+    MatMenuModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule
   ],
   exports:[
     CommonModule,
@@ -32,7 +37,11 @@ import {MatMenuModule} from '@angular/material/menu';
     MatIconModule,
     MatListModule,
     MatFormFieldModule,
-    MatMenuModule
+    MatMenuModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule,
+    InputErrorComponent
   ]
 })
 export class SharedModule { }
