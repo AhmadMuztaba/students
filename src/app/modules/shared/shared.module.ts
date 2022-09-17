@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { InputErrorComponent } from './input-error/input-error.component';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import {MatMenuModule} from '@angular/material/menu';
 @NgModule({
   declarations: [InputErrorComponent],
   imports: [
@@ -19,7 +20,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatMenuModule
   ],
   exports:[
     CommonModule,
@@ -29,7 +31,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatMenuModule
   ]
 })
 export class SharedModule { }
