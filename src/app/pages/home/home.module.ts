@@ -9,13 +9,15 @@ import { ListsComponent } from './lists/lists.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { FormComponent } from './form/form.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     NavComponent,
-    ListsComponent
+    ListsComponent,
+    FormComponent
   ],
   imports: [
     CommonModule,
