@@ -12,7 +12,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { FormComponent } from './form/form.component';
 import { DetailsComponent } from './details/details.component';
 import { ModalRouteComponent } from './modal-route/modal-route.component';
-import { ShowDetailsComponent } from './show-details/show-details.component';
 
 
 @NgModule({
@@ -23,7 +22,6 @@ import { ShowDetailsComponent } from './show-details/show-details.component';
     FormComponent,
     DetailsComponent,
     ModalRouteComponent,
-    ShowDetailsComponent
   ],
   imports: [
     CommonModule,

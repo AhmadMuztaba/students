@@ -11,38 +11,46 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-  form:FormGroup|any;
   id:string='';
+  form:FormGroup|any;
   readOnly:boolean=false;
   data:student[]=[];
   selectedData:student|undefined;
-  constructor(private route:ActivatedRoute) {
-    this.route.params.subscribe(params=>{
-      this.id=params['id'];
-      if(this.id){
-        this.readOnly=true;
-        this.data=this.getLocalStorageData('students');
-        console.log(this.data);
-        this.selectedData=this.data.find(student=>student.id==this.id);
-        console.log(this.selectedData);
-        this.formBuild(this.selectedData);
-      }
-    })
+  constructor(private route:ActivatedRoute,private conditionalRenderService:ConditionalRenderComponentService) {
+    
   }
 
 
 
   ngOnInit(): void {
     this.formBuild();
+    this.route.params.subscribe(params=>{
+      if(params['id']){
+        this.conditionalRenderService.changeComponent('');
+      }
+      this.id=params['id'];
+      this.selectData();
+      
+    })
   }
-  formBuild(data?:student){
-    console.log(data);
+
+  selectData(){
+    if(this.id){
+      this.readOnly=true;
+      this.data=this.getLocalStorageData('students');
+      console.log(this.data);
+      this.selectedData=this.data.find(student=>student.id==this.id);
+      console.log(this.selectedData);
+      this.formBuild();
+    }
+  }
+  formBuild(){
     this.form=new FormGroup({
-      id:new FormControl(uuidv4()),
-      name:new FormControl(data?.name||'',Validators.required),
-      profession:new FormControl(data?.profession||''),
-      email:new FormControl(data?.email||'',[Validators.required,Validators.email]),
-      phone:new FormControl(data?.phone||''),
+      id:new FormControl(this.selectedData?.id||uuidv4()),
+      name:new FormControl(this.selectedData?.name||'',Validators.required),
+      profession:new FormControl(this.selectedData?.profession||''),
+      email:new FormControl(this.selectedData?.email||'',[Validators.required,Validators.email]),
+      phone:new FormControl(this.selectedData?.phone||''),
     })
   }
   saveToLocalStorage(key:string,value:student){

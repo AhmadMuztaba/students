@@ -11,12 +11,14 @@ import { DetailsComponent } from '../details/details.component';
 })
 export class ModalRouteComponent implements OnInit,OnDestroy{
   destroy=new Subject<any>();
-  private currentDialog:MatDialogRef<any>|null=null
+  private currentDialog:MatDialogRef<any>|null=null;
+  routeUnsubscribe;
   constructor(private matDialog:MatDialog,private route:ActivatedRoute,private router:Router) {
-    route.params.pipe(takeUntil(this.destroy)).subscribe(params=>{
-      if(this.currentDialog){
-        this.currentDialog.close();
-      }
+    // pipe(takeUntil(this.destroy))
+    this.routeUnsubscribe=route.params.subscribe(params=>{
+      // if(this.currentDialog){
+      //   this.currentDialog.close();
+      // }
       this.currentDialog=matDialog.open(DetailsComponent,{
         data:{
           id:params['id']
@@ -32,7 +34,7 @@ export class ModalRouteComponent implements OnInit,OnDestroy{
   ngOnInit(): void {
   }
   ngOnDestroy(){
-    this.destroy.next('');
+    this.routeUnsubscribe.unsubscribe();
   }
 
 }

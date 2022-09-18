@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild,OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 import { ConditionalRenderComponentService } from 'src/app/@services/conditional-render-component.service';
 import { DetailsComponent } from '../details/details.component';
 import { ListsDataSource, ListsItem } from './lists-datasource';
@@ -12,7 +13,7 @@ import { ListsDataSource, ListsItem } from './lists-datasource';
   templateUrl: './lists.component.html',
   styleUrls: ['./lists.component.scss']
 })
-export class ListsComponent implements AfterViewInit {
+export class ListsComponent implements AfterViewInit,OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<ListsItem>;
@@ -21,8 +22,11 @@ export class ListsComponent implements AfterViewInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name','phone','email','profession','actions'];
 
-  constructor(private dialog:MatDialog,private conditionalRenderService:ConditionalRenderComponentService) {
+  constructor(private dialog:MatDialog,private conditionalRenderService:ConditionalRenderComponentService,private route:ActivatedRoute) {
     this.dataSource = new ListsDataSource();
+  }
+  ngOnInit(): void {
+      this.route.params.subscribe(params=>console.log(params['id']));
   }
 
   ngAfterViewInit(): void {
@@ -40,6 +44,6 @@ export class ListsComponent implements AfterViewInit {
     })
   }
   showForm(){
-    this.conditionalRenderService.changeComponent('form');
+    this.conditionalRenderService.changeComponent('');
   }
 }
