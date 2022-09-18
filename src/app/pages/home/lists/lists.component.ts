@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
+import { DetailsComponent } from '../details/details.component';
 import { ListsDataSource, ListsItem } from './lists-datasource';
 
 @Component({
@@ -18,7 +20,7 @@ export class ListsComponent implements AfterViewInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name','actions'];
 
-  constructor() {
+  constructor(private dialog:MatDialog) {
     this.dataSource = new ListsDataSource();
   }
 
@@ -26,5 +28,14 @@ export class ListsComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+  show(data:any){
+    this.dialog.open(DetailsComponent,{
+      data:data
+    }).afterClosed().subscribe((data)=>{
+      if(data){
+        console.log(data);
+      }
+    })
   }
 }

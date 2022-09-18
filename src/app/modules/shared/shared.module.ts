@@ -12,6 +12,7 @@ import { MatFormFieldModule} from "@angular/material/form-field";
 import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule } from '@angular/material/input';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 @NgModule({
   declarations: [InputErrorComponent],
   imports: [
@@ -26,7 +27,8 @@ import {MatInputModule } from '@angular/material/input';
     MatMenuModule,
     ReactiveFormsModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule,
   ],
   exports:[
     CommonModule,
@@ -41,7 +43,8 @@ import {MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
-    InputErrorComponent
+    InputErrorComponent,
+    MatDialogModule
   ]
 })
 export class SharedModule { }

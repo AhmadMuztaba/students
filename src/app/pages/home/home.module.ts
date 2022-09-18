@@ -10,6 +10,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { FormComponent } from './form/form.component';
+import { DetailsComponent } from './details/details.component';
+import { ModalRouteComponent } from './modal-route/modal-route.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { FormComponent } from './form/form.component';
     HomeComponent,
     NavComponent,
     ListsComponent,
-    FormComponent
+    FormComponent,
+    DetailsComponent,
+    ModalRouteComponent
   ],
   imports: [
     CommonModule,

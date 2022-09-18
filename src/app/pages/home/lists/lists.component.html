@@ -18,9 +18,9 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item [routerLink]="'/'+row.id">
             <mat-icon>dialpad</mat-icon>
-            <span>Redial</span>
+            <span>Show</span>
           </button>
           <button mat-menu-item disabled>
             <mat-icon>voicemail</mat-icon>
@@ -47,3 +47,4 @@
       aria-label="Select page">
   </mat-paginator>
 </div>
+<router-outlet></router-outlet>

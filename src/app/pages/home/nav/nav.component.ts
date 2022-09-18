@@ -33,6 +33,6 @@ export class NavComponent implements OnInit,OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.conditionSubsription.unSubscribe();
+    this.conditionSubsription.unsubscribe();
   }
 }
