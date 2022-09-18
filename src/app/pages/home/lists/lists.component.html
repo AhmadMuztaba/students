@@ -64,12 +64,12 @@
             <span>View Details</span>
           </button>
           <button mat-menu-item [routerLink]="'/'+row.id">
-              <mat-icon>done</mat-icon>
+              <mat-icon>edit</mat-icon>
               <span>Edit</span>
             </button>
-            <button *ngIf="row.status=='pending'" mat-menu-item [routerLink]="'/main/booking-rejection/'+row.id">
+            <button mat-menu-item (click)="delete(row.id)">
               <mat-icon>delete</mat-icon>
-              <span>Decline</span>
+              <span>Delete</span>
             </button>
         </mat-menu>
         

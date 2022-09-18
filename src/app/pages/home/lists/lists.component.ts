@@ -7,6 +7,7 @@ import {Router } from '@angular/router';
 import { CommunicationServiceService } from 'src/app/@services/communication-service.service';
 import { ConditionalRenderComponentService } from 'src/app/@services/conditional-render-component.service';
 import { student } from 'src/app/models/student';
+import Swal from 'sweetalert2';
 import { DetailsComponent } from '../details/details.component';
 
 @Component({
@@ -50,6 +51,9 @@ export class ListsComponent implements OnInit{
     }
     return parsedData;
   }
+  saveToLocalStorage(key:string,value:student){
+    localStorage.setItem(key,JSON.stringify(value));
+  }
   applyFilter(event:any){
     if(event.target.value.length>2){
       this.dataSource.filter=(event.target as HTMLInputElement).value.trim().toLowerCase();
@@ -73,6 +77,29 @@ export class ListsComponent implements OnInit{
     }).afterClosed().subscribe((data)=>{
       if(data){
         console.log(data);
+      }
+    })
+  }
+  delete(id:string){
+    Swal.fire({
+      title: `Are you sure you want to delete with id ${id}?`,
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let data=this.getLocalStorageData('students');
+        data=data.filter((student:student)=>student.id!=id);
+        this.saveToLocalStorage('students',data);
+        this.communicationService.saveToLocalStorage();
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
       }
     })
   }
