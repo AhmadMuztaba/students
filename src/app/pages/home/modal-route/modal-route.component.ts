@@ -2,6 +2,9 @@ import { Component, OnInit,OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { CommunicationServiceService } from 'src/app/@services/communication-service.service';
+import { student } from 'src/app/models/student';
+import Swal from 'sweetalert2';
 import { DetailsComponent } from '../details/details.component';
 
 @Component({
@@ -13,7 +16,7 @@ export class ModalRouteComponent implements OnInit,OnDestroy{
   destroy=new Subject<any>();
   private currentDialog:MatDialogRef<any>|null=null;
   routeUnsubscribe;
-  constructor(private matDialog:MatDialog,private route:ActivatedRoute,private router:Router) {
+  constructor(private matDialog:MatDialog,private route:ActivatedRoute,private router:Router,private communicationService:CommunicationServiceService) {
     // pipe(takeUntil(this.destroy))
     this.routeUnsubscribe=route.params.subscribe(params=>{
       // if(this.currentDialog){
@@ -25,10 +28,40 @@ export class ModalRouteComponent implements OnInit,OnDestroy{
         }
       });
       this.currentDialog.afterClosed().subscribe(result=>{
-        console.log(result);
         router.navigateByUrl('/');
+        if(result){
+          let data:student[]=this.getLocalStorageData('students');
+          data=data.map((student)=>{
+            if(student.id==result.id){
+              return result;
+            }else{
+              return student;
+            }
+          })
+          console.log(data);
+          this.saveToLocalStorage('students',data);
+          this.communicationService.saveToLocalStorage();
+          Swal.fire(
+            'Good job!',
+            'Updated!',
+            'success'
+          )
+        }
+        
       })
     })
+  }
+
+  saveToLocalStorage(key:string,value:student[]){
+    localStorage.setItem(key,JSON.stringify(value));
+  }
+  getLocalStorageData(key:string){
+    let data=localStorage.getItem(key);
+    let parsedData=[];
+    if(data){
+      parsedData=JSON.parse(data);
+    }
+    return parsedData;
   }
 
   ngOnInit(): void {

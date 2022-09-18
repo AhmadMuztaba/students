@@ -1,61 +1,88 @@
-<div class="mat-elevation-z8">
-  <table mat-table class="full-width-table" matSort aria-label="Elements">
-    <!-- Id Column -->
+<div style="background-color: #f6f6f6;">
+  <label>
+    <input (keyup)="applyFilter($event)"
+      class="input"
+      placeholder="Search" type="text" name="search" />
+    <span class="input__svg">
+      <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 18L13.9862 13.9791L18 18ZM16.2105 8.60526C16.2105 10.6223 15.4093 12.5567 13.983 13.983C12.5567 15.4093 10.6223 16.2105 8.60526 16.2105C6.58822 16.2105 4.65379 15.4093 3.22753 13.983C1.80127 12.5567 1 10.6223 1 8.60526C1 6.58822 1.80127 4.65379 3.22753 3.22753C4.65379 1.80127 6.58822 1 8.60526 1C10.6223 1 12.5567 1.80127 13.983 3.22753C15.4093 4.65379 16.2105 6.58822 16.2105 8.60526V8.60526Z" stroke="#667085" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </span>
+  </label>
+  <table mat-table class="mat-elevation-z8"  [dataSource]="dataSource" matSort >
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        ID
+      </th>
+      <td mat-cell *matCellDef="let row">
+        {{row.id}}
+      </td>
     </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+    <ng-container matColumnDef="name" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Name
+      </th>
+      <td mat-cell *matCellDef="let row">
+        {{row.name}}
+      </td>
     </ng-container>
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-      <td mat-cell *matCellDef="let row">{{row.email}}</td>
+    <ng-container matColumnDef="email" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Email
+      </th>
+      <td mat-cell *matCellDef="let row">
+        {{row.email}}
+      </td>
     </ng-container>
     <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
-      <td mat-cell *matCellDef="let row">{{row.phone}}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Phone
+      </th>
+      <td mat-cell *matCellDef="let row">
+        {{row.phone}}
+      </td>
     </ng-container>
-    <ng-container matColumnDef="profession">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Profession</th>
-      <td mat-cell *matCellDef="let row">{{row.profession}}</td>
+    <ng-container matColumnDef="profession" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+       Profession
+      </th>
+      <td mat-cell *matCellDef="let row">
+        {{row.profession}}
+      </td>
     </ng-container>
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+    <ng-container matColumnDef="actions" >
+      <th mat-header-cell *matHeaderCellDef>
+       Actions
+      </th>
       <td mat-cell *matCellDef="let row">
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item [routerLink]="'/show/'+row.id" (click)="showForm()">
-            <mat-icon>drafts</mat-icon>
-            <span>Show</span>
+          <button mat-menu-item [routerLink]="'show/'+row.id" (click)="showForm()">
+            <mat-icon>list_alt</mat-icon>
+            <span>View Details</span>
           </button>
-          <button mat-menu-item [routerLink]="'/'+row.id" >
-            <mat-icon>create</mat-icon>
-            <span>Edit</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>delete</mat-icon>
-            <span>delete</span>
-          </button>
+          <button mat-menu-item [routerLink]="'/'+row.id">
+              <mat-icon>done</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button *ngIf="row.status=='pending'" mat-menu-item [routerLink]="'/main/booking-rejection/'+row.id">
+              <mat-icon>delete</mat-icon>
+              <span>Decline</span>
+            </button>
         </mat-menu>
+        
       </td>
-     
     </ng-container>
- 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-header-row  *matHeaderRowDef="columns"></tr>
+    <tr mat-row class="row" *matRowDef="let row;columns:columns"></tr>
   </table>
 
-  <mat-paginator #paginator
-      [length]="dataSource.data.length"
-      [pageIndex]="0"
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 20]"
-      aria-label="Select page">
-  </mat-paginator>
+  <mat-paginator class="mt-2" [length]="100"
+  [pageSize]="5"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  (page)="handlePage($event)"
+  aria-label="Select page">
+</mat-paginator>
 </div>

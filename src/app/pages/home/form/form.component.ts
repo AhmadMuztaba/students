@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CommunicationServiceService } from 'src/app/@services/communication-service.service';
 import { ConditionalRenderComponentService } from 'src/app/@services/conditional-render-component.service';
 import { student } from 'src/app/models/student';
 import Swal from 'sweetalert2';
@@ -16,7 +17,7 @@ export class FormComponent implements OnInit {
   readOnly:boolean=false;
   data:student[]=[];
   selectedData:student|undefined;
-  constructor(private route:ActivatedRoute,private conditionalRenderService:ConditionalRenderComponentService) {
+  constructor(private route:ActivatedRoute,private conditionalRenderService:ConditionalRenderComponentService,private communicationService:CommunicationServiceService) {
     
   }
 
@@ -75,7 +76,7 @@ export class FormComponent implements OnInit {
         'Data added!',
         'success'
       )
-     
+      this.communicationService.saveToLocalStorage();
       this.form.reset();
       this.form.controls['name'].setErrors(null);
       this.form.controls['email'].setErrors(null);
