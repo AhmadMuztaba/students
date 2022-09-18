@@ -30,11 +30,11 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item [routerLink]="'/show'+row.id">
+          <button mat-menu-item [routerLink]="'/show/'+row.id" (click)="showForm()">
             <mat-icon>drafts</mat-icon>
             <span>Show</span>
           </button>
-          <button mat-menu-item [routerLink]="'/'+row.id">
+          <button mat-menu-item [routerLink]="'/'+row.id" >
             <mat-icon>create</mat-icon>
             <span>Edit</span>
           </button>

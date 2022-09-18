@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
+import { ConditionalRenderComponentService } from 'src/app/@services/conditional-render-component.service';
 import { DetailsComponent } from '../details/details.component';
 import { ListsDataSource, ListsItem } from './lists-datasource';
 
@@ -20,7 +21,7 @@ export class ListsComponent implements AfterViewInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name','phone','email','profession','actions'];
 
-  constructor(private dialog:MatDialog) {
+  constructor(private dialog:MatDialog,private conditionalRenderService:ConditionalRenderComponentService) {
     this.dataSource = new ListsDataSource();
   }
 
@@ -37,5 +38,8 @@ export class ListsComponent implements AfterViewInit {
         console.log(data);
       }
     })
+  }
+  showForm(){
+    this.conditionalRenderService.changeComponent('form');
   }
 }
