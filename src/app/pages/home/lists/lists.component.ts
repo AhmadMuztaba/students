@@ -51,7 +51,7 @@ export class ListsComponent implements OnInit{
     return parsedData;
   }
   applyFilter(event:any){
-    if(event.target.length>2){
+    if(event.target.value.length>2){
       this.dataSource.filter=(event.target as HTMLInputElement).value.trim().toLowerCase();
     }
     
