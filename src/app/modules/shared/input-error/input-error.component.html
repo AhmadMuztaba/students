@@ -11,6 +11,9 @@
     <mat-error *ngIf="controls?.hasError('pattern')" role="alert">
         pattern Not matched
     </mat-error>
+    <mat-error *ngIf="controls?.hasError('email')" role="alert">
+        Not an Email
+    </mat-error>
     <mat-error *ngIf="controls?.hasError('match')" role="alert">
         match is required.</mat-error>
 </div>

@@ -18,7 +18,7 @@ export class ListsComponent implements AfterViewInit {
   dataSource: ListsDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name','actions'];
+  displayedColumns = ['id', 'name','phone','email','profession','actions'];
 
   constructor(private dialog:MatDialog) {
     this.dataSource = new ListsDataSource();

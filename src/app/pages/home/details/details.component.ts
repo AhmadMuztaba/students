@@ -14,6 +14,9 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     this.form=new FormGroup({
       name:new FormControl(''),
+      phone:new FormControl(''),
+      email:new FormControl(''),
+      profession:new FormControl('')
     })
   }
   isCreateMode() {
