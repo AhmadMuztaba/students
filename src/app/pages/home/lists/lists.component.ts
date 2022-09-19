@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild,OnInit } from '@angular/core';
+import { AfterViewInit, Component, ViewChild,OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -15,12 +15,13 @@ import { DetailsComponent } from '../details/details.component';
   templateUrl: './lists.component.html',
   styleUrls: ['./lists.component.scss']
 })
-export class ListsComponent implements OnInit{
+export class ListsComponent implements OnInit,OnDestroy{
   dataSource!: MatTableDataSource<student>;
   students:student[]=[];
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
+  dataUnsubscribe:any;
   columns=['id','name','email','phone','profession','actions'];
   @ViewChild(MatSort,{static:true}) sort!:MatSort;
   @ViewChild(MatPaginator,{static:true}) paginator!:MatPaginator;
@@ -28,7 +29,7 @@ export class ListsComponent implements OnInit{
         
   }
   ngOnInit(): void {
-    this.communicationService.$data.subscribe({
+    this.dataUnsubscribe=this.communicationService.$data.subscribe({
       next:(data)=>{
         this.tableInitilize(data);
       },error:(err)=>{
@@ -55,7 +56,7 @@ export class ListsComponent implements OnInit{
     localStorage.setItem(key,JSON.stringify(value));
   }
   applyFilter(event:any){
-    if(event.target.value.length>2){
+    if(event.target.value.length>2||event.target.value==''){
       this.dataSource.filter=(event.target as HTMLInputElement).value.trim().toLowerCase();
     }
     
@@ -105,5 +106,8 @@ export class ListsComponent implements OnInit{
   }
   showForm(){
     this.conditionalRenderService.changeComponent('');
+  }
+  ngOnDestroy(): void {
+    this.dataUnsubscribe.unsubscribe();
   }
 }

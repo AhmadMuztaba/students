@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CommunicationServiceService } from 'src/app/@services/communication-service.service';
@@ -11,10 +11,11 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit,OnDestroy {
   id:string='';
   form:FormGroup|any;
   readOnly:boolean=false;
+  routeUnsubscribe:any;
   data:student[]=[];
   selectedData:student|undefined;
   constructor(private route:ActivatedRoute,private conditionalRenderService:ConditionalRenderComponentService,private communicationService:CommunicationServiceService) {
@@ -25,7 +26,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.formBuild();
-    this.route.params.subscribe(params=>{
+    this.routeUnsubscribe=this.route.params.subscribe(params=>{
       if(params['id']){
         this.conditionalRenderService.changeComponent('');
       }
@@ -81,6 +82,9 @@ export class FormComponent implements OnInit {
       this.form.controls['name'].setErrors(null);
       this.form.controls['email'].setErrors(null);
     }
+  }
+  ngOnDestroy(): void {
+    this.routeUnsubscribe.unsubscribe();
   }
 
 }
