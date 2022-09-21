@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import * as moment from 'moment';
 import { student } from 'src/app/models/student';
 @Component({
   selector: 'app-details',
@@ -39,9 +40,10 @@ export class DetailsComponent implements OnInit {
     this.form=new FormGroup({
       id:new FormControl(this.selectedData?.id||''),
       name:new FormControl(this.selectedData?.name||'',Validators.required),
-      phone:new FormControl(this.selectedData?.phone||''),
+      phone:new FormControl(this.selectedData?.phone||'',[Validators.pattern("\^(01)[5-9][\d]{8}$")]),
       email:new FormControl(this.selectedData?.email||'',[Validators.required,Validators.email]),
-      profession:new FormControl(this.selectedData?.profession||'')
+      profession:new FormControl(this.selectedData?.profession||''),
+      dob:new FormControl(moment(this.selectedData?.dob).format('YYYY-MM-DD')||''),
     })
   }
   isCreateMode() {

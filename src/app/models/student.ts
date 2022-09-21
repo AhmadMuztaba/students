@@ -5,4 +5,5 @@ export interface student extends base{
     email:string;
     phone:string;
     profession:string;
+    dob:string;
 }

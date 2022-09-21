@@ -13,6 +13,9 @@ import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule } from '@angular/material/input';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+
 @NgModule({
   declarations: [InputErrorComponent],
   imports: [
@@ -29,6 +32,8 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     FormsModule,
     MatInputModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports:[
     CommonModule,
@@ -44,7 +49,9 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     FormsModule,
     MatInputModule,
     InputErrorComponent,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class SharedModule { }

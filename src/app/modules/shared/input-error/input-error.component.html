@@ -1,4 +1,4 @@
-<div *ngIf="controls?.touched && controls?.errors" class="error-group">
+<ng-container *ngIf="controls?.touched && controls?.errors">
     <mat-error *ngIf="controls?.hasError('required')">
         {{fieldName}} is required
     </mat-error>
@@ -8,12 +8,12 @@
     <mat-error *ngIf="controls?.hasError('minlength')" role="alert">
         Min Length is {{controls.errors['minlength'].requiredLength}}
     </mat-error>
-    <mat-error *ngIf="controls?.hasError('pattern')" role="alert">
-        pattern Not matched
+    <mat-error *ngIf="controls?.errors['pattern']?.requiredPattern" role="alert">
+        {{fieldName}} not valid
     </mat-error>
     <mat-error *ngIf="controls?.hasError('email')" role="alert">
         Not an Email
     </mat-error>
     <mat-error *ngIf="controls?.hasError('match')" role="alert">
-        match is required.</mat-error>
-</div>
+        {{fieldName}} Not Valid</mat-error>
+</ng-container>

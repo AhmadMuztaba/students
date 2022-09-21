@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {MatTableDataSource } from '@angular/material/table';
 import {Router } from '@angular/router';
+import * as moment from 'moment';
 import { CommunicationServiceService } from 'src/app/@services/communication-service.service';
 import { ConditionalRenderComponentService } from 'src/app/@services/conditional-render-component.service';
 import { student } from 'src/app/models/student';
@@ -22,7 +23,7 @@ export class ListsComponent implements OnInit,OnDestroy{
   public currentPage = 0;
   public totalSize = 0;
   dataUnsubscribe:any;
-  columns=['id','name','email','phone','profession','actions'];
+  columns=['id','name','DOB','email','phone','profession','actions'];
   @ViewChild(MatSort,{static:true}) sort!:MatSort;
   @ViewChild(MatPaginator,{static:true}) paginator!:MatPaginator;
   constructor(private router:Router,private dialog:MatDialog,private conditionalRenderService:ConditionalRenderComponentService,private communicationService:CommunicationServiceService){
@@ -60,6 +61,13 @@ export class ListsComponent implements OnInit,OnDestroy{
       this.dataSource.filter=(event.target as HTMLInputElement).value.trim().toLowerCase();
     }
     
+  }
+  searchByDate(event:any){
+    this.dataSource.filter=new Date(event.value).toISOString();
+  }
+
+  dateFormat(date:string){
+    return moment(date).format('DD-MM-YYYY');
   }
   handlePage(e: any) {
     this.currentPage = e.pageIndex;

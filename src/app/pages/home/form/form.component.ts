@@ -52,7 +52,8 @@ export class FormComponent implements OnInit,OnDestroy {
       name:new FormControl(this.selectedData?.name||'',Validators.required),
       profession:new FormControl(this.selectedData?.profession||''),
       email:new FormControl(this.selectedData?.email||'',[Validators.required,Validators.email]),
-      phone:new FormControl(this.selectedData?.phone||''),
+      phone:new FormControl(this.selectedData?.phone||'',[Validators.pattern("^(01)(5|6|7|8|9)[0-9]{8}$")]),
+      dob:new FormControl(this.selectedData?.dob||''),
     })
   }
   saveToLocalStorage(key:string,value:student){
@@ -76,7 +77,9 @@ export class FormComponent implements OnInit,OnDestroy {
         'Good job!',
         'Data added!',
         'success'
-      )
+      ).then(()=>{
+        this.conditionalRenderService.changeComponent('lists');
+      })
       this.communicationService.saveToLocalStorage();
       this.form.reset();
       this.form.controls['name'].setErrors(null);

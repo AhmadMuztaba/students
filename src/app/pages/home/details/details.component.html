@@ -60,7 +60,17 @@
             <app-input-error [controls]="this.form.controls['profession']" [fieldName]="'Profession'"></app-input-error>
         </div>
         </div>
-       
+        <div class="flex">
+        <div class="mx-1">
+            <mat-form-field appearance="outline">
+            <mat-label>Date Of Birth</mat-label>
+            <input formControlName="dob" matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+    </div>
 
     </mat-dialog-content>
 
