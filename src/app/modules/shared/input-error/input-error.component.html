@@ -1,19 +1,19 @@
 <ng-container *ngIf="controls?.touched && controls?.errors">
-    <mat-error *ngIf="controls?.hasError('required')">
+    <mat-error *ngIf="controls?.hasError('required')" class="position">
         {{fieldName}} is required
     </mat-error>
-    <mat-error *ngIf="controls?.hasError('maxlength')" role="alert">
+    <mat-error *ngIf="controls?.hasError('maxlength')" class="position" role="alert">
         Max Length is {{controls.errors['maxlength'].requiredLength}}
     </mat-error>
-    <mat-error *ngIf="controls?.hasError('minlength')" role="alert">
+    <mat-error *ngIf="controls?.hasError('minlength')" class="position" role="alert">
         Min Length is {{controls.errors['minlength'].requiredLength}}
     </mat-error>
-    <mat-error *ngIf="controls?.errors['pattern']?.requiredPattern" role="alert">
+    <mat-error *ngIf="controls?.errors['pattern']?.requiredPattern" class="position" role="alert">
         {{fieldName}} not valid
     </mat-error>
-    <mat-error *ngIf="controls?.hasError('email')" role="alert">
+    <mat-error *ngIf="controls?.hasError('email')" class="position" role="alert">
         Not an Email
     </mat-error>
-    <mat-error *ngIf="controls?.hasError('match')" role="alert">
+    <mat-error *ngIf="controls?.hasError('match')" class="position" role="alert">
         {{fieldName}} Not Valid</mat-error>
 </ng-container>
