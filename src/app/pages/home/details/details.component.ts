@@ -40,7 +40,7 @@ export class DetailsComponent implements OnInit {
     this.form=new FormGroup({
       id:new FormControl(this.selectedData?.id||''),
       name:new FormControl(this.selectedData?.name||'',Validators.required),
-      phone:new FormControl(this.selectedData?.phone||'',[Validators.pattern("\^(01)[5-9][\d]{8}$")]),
+      phone:new FormControl(this.selectedData?.phone||'',[Validators.pattern("^(01)(5|6|7|8|9)[0-9]{8}$")]),
       email:new FormControl(this.selectedData?.email||'',[Validators.required,Validators.email]),
       profession:new FormControl(this.selectedData?.profession||''),
       dob:new FormControl(moment(this.selectedData?.dob).format('YYYY-MM-DD')||''),
