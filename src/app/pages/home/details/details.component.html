@@ -1,0 +1,92 @@
+<form (ngSubmit)="save()" [formGroup]="form">
+    <div fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+        <button
+        [matMenuTriggerFor]="settingsMenu"
+        class="text-secondary"
+        mat-icon-button
+        type="button"
+        *ngIf="mode=='read'"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+  
+      <button
+        class="text-secondary"
+        mat-dialog-close
+        mat-icon-button
+        type="button"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <mat-divider class=""></mat-divider>
+    <mat-dialog-content fxLayout="column">
+        <div class="flex">
+            <div class="mx-1">
+                <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input [readonly]="mode=='read'"  formControlName="name" matInput />
+                    
+                </mat-form-field>
+                <app-input-error [controls]="this.form.controls['name']" [fieldName]="'Name'"></app-input-error>
+            </div>
+            <div class="mx-1">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input [readonly]="mode=='read'" type="email" formControlName="email" matInput />
+                </mat-form-field>
+                <app-input-error [controls]="this.form.controls['email']" [fieldName]="'email'"></app-input-error>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="mx-1">
+            
+        </div>
+        <div class="mx-1">
+            <mat-form-field appearance="outline">
+                <mat-label>Phone</mat-label>
+                <input [readonly]="mode=='read'" formControlName="phone" type="text" matInput />
+            </mat-form-field>
+            <app-input-error [controls]="this.form.controls['phone']" [fieldName]="'phone'"></app-input-error>
+        </div>
+        </div>
+        <div class="flex">
+        <div class="mx-1">
+            <mat-form-field appearance="outline">
+                <mat-label>Profession</mat-label>
+                <input [readonly]="mode=='read'" formControlName="profession" type="text" matInput />
+            </mat-form-field>
+            <app-input-error [controls]="this.form.controls['profession']" [fieldName]="'Profession'"></app-input-error>
+        </div>
+        </div>
+        <div class="flex">
+        <div class="mx-1">
+            <mat-form-field appearance="outline">
+            <mat-label>Date Of Birth</mat-label>
+            <input readonly formControlName="dob" matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+    </div>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close type="button">CANCEL</button>
+        <button *ngIf="isCreateMode()" [disabled]="!this.form.valid" color="primary" mat-button type="submit">
+            Create
+        </button>
+        <button *ngIf="isUpdateMode()" [disabled]="!this.form.valid" color="primary" mat-button type="submit">
+            UPDATE
+        </button>
+    </mat-dialog-actions>
+</form>
+<mat-menu #settingsMenu="matMenu" xPosition="before" yPosition="below">
+    <!-- <button mat-menu-item (click)="modeChangeToUpdate()">
+      <mat-icon>autorenew</mat-icon>
+      <span>Update</span>
+    </button> -->
+</mat-menu>
